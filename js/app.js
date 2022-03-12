@@ -1,4 +1,4 @@
-//& Create the dice
+//& Create the dice div
 function createNewDiv(className, idName) {
     //create new div
     var newDivElement = document.createElement("div");
@@ -9,19 +9,30 @@ function createNewDiv(className, idName) {
     getBoard.appendChild(newDivElement);
 }
 
-//& Return random number
-function randomNumber(min, max) {
-    return Math.round(Math.random() * (max - min) + min);
+//& Create ennemy
+function createEnemy() {
+    //create new div
+    var newDivEnemy = document.createElement("div");
+    //add class
+    newDivEnemy.classList.add("board");
+    newDivEnemy.id = "dealer";
+    //add in parent element
+    var getBoard = document.querySelector("#app");
+    getBoard.appendChild(newDivEnemy);
 }
 
 //& Random dice
 function randomDice() {
     var getDice = document.querySelectorAll(".dice");
-
-    for (var n = 0; n < getDice.length; n++) {
-        getDice[n].style.backgroundPosition = faceDice();
+    for (var rollCount = 0; rollCount < getDice.length; rollCount++) {
+        getDice[rollCount].style.backgroundPosition = faceDice();
     }
+    return getDice;
+}
 
+//& Return random number
+function randomNumber(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
 }
 
 //& faceDice
@@ -45,45 +56,61 @@ function faceDice() {
     return position;
 }
 
-//& Click on button
-function btnClick() {
-    var btn = document.querySelector("button");
+//& Click on button roll dice
+function randomBtnClick() {
+    var btn = document.querySelector(".roll-dice");
     btn.addEventListener("click", randomDice);
 }
 
-//& Many dices
-function userCreateDice() {
-    var question = parseInt(prompt("How many dice(s) would you like to roll ?")); // du coup me donne un nombre à récupérer
+//& Click on button add dice
+function addDiceBtnClick() {
+    var btn = document.querySelector(".add-dice");
+    btn.addEventListener("click", function () {//to get the argument !!!!
+        var askDice = "How many dice(s) would you like to add ?"
+        userCreateDice(0, askDice); 
+    })
+}
+
+//& Click on remove dice
+function removeDiceBtnClick() {
+    var btn = document.querySelector(".remove-dice");
+    btn.addEventListener("click", removeDices);
+}
+
+//& Create dices
+const askDice = "How many dice(s) would you like to roll ?";
+function userCreateDice(diceNumber, askDice) {
+    var question = parseInt(prompt(askDice), 10); // du coup me donne un nombre à récupérer
     var roundNumberDice = Math.round(question); // arrondi au cas où l'user met une virgule
     var numberOfDices = [];
 
-    if (roundNumberDice > 10) {
-        question = parseInt(prompt("Please, not so much !"));
-    } else {
-        for (var i = 1; i < roundNumberDice; i++) {
-            numberOfDices.push(i);
-            createNewDiv("dice","#player");
-            createNewDiv("dice", "#dealer");
-        }
-
+    for (var i = diceNumber; i < roundNumberDice; i++) {
+        numberOfDices.push(diceNumber);
+        createNewDiv("dice", "#player");
+        createNewDiv("dice", "#dealer");
     }
 }
 
-//& Create ennemy
-function createEnemy() {
-    //create new div
-    var newDivEnemy = document.createElement("div");
-    //add class
-    newDivEnemy.classList.add("board");
-    newDivEnemy.id = "dealer";
-    //add in parent element
-    var getBoard = document.querySelector("#app");
-    getBoard.appendChild(newDivEnemy);   
+//& Remove dice
+function removeDices() {
+    //create node list for dices
+    var allDicesPlayer = document.querySelectorAll("#player .dice");
+    var allDicesDealer = document.querySelectorAll("#dealer .dice");
+    //choose the last one
+    var lastDicePlayer =  allDicesPlayer[(allDicesPlayer.length)- 1];
+    var lastDiceDealer =  allDicesDealer[(allDicesDealer.length)- 1];
+    //remove the last one
+    lastDicePlayer.remove();
+    lastDiceDealer.remove();
 }
 
 
-createNewDiv("dice","#player");
-btnClick();
+// TODO Play the game
+
+createNewDiv("dice", "#player");
 createEnemy();
 createNewDiv("dice", "#dealer");
-userCreateDice();
+userCreateDice(1, askDice);
+randomBtnClick();
+addDiceBtnClick();
+removeDiceBtnClick();

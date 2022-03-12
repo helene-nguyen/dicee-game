@@ -42,10 +42,26 @@ body {
   border-radius: 10px;
   background-color: #fad8ba;
   transition: 0.5s;
+}
+
+.roll-dice {
   position: absolute;
   top: 2em;
   left: 3em;
 }
+
+.add-dice {
+  position: absolute;
+  top: 6em;
+  left: 3em;
+}
+
+.remove-dice {
+  position: absolute;
+  top: 10em;
+  left: 3em;
+}
+
 
 .btn:hover {
   background-color: #c1eaf0;
