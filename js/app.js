@@ -1,3 +1,5 @@
+//Yumicode 2022
+
 //& Create the dice div
 function createNewDiv(className, idName) {
     //create new div
