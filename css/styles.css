@@ -44,25 +44,23 @@ body {
   transition: 0.5s;
 }
 
-.roll-dice {
-  position: absolute;
-  top: 2em;
-  left: 3em;
-}
-
-.add-dice {
-  position: absolute;
-  top: 6em;
-  left: 3em;
-}
-
-.remove-dice {
-  position: absolute;
-  top: 10em;
-  left: 3em;
-}
-
 
 .btn:hover {
   background-color: #c1eaf0;
+}
+
+.buttons {
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  text-align: center;
+  margin: 2em 0;
+}
+
+/*MEDIA QUERIES*/
+@media screen and (max-width: 800px) {
+  .btn {
+    width: auto;
+  }
+
 }
